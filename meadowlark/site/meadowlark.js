@@ -1,17 +1,6 @@
 var express = require('express');
-
 var app = express();
-
-/**
-	定义一个幸运的饼干
-**/
-var fortunes = [
-	'Conquer your fears or they will Conquer you.',
-	'Rivers need springs.',
-	"Do not fear what you don't know.",
-	"you will have a pleasant surprise.",
-	"Whenever possible, keep it simple."
-];
+var fortune = require('./lib/fortune.js');
 
 /**
 **设置handlebars 视图引擎
@@ -31,9 +20,8 @@ app.get('/',function (req, res) {
 	res.render('home');
 });
 
-app.get('/about', function (req, res) {
-	var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];	
-	res.render('about', { fortune: randomFortune});
+app.get('/about', function (req, res) {	
+	res.render('about', { fortune: fortune.getFortune()});
 });
 
 // 订制404 页面
@@ -54,4 +42,4 @@ app.use(function (err, req, res, next) {
 
 app.listen(app.get('port'), function () {
 	console.log('Express started on http: //localhost:' + app.get('port')+';press Ctrl-C to terminate.');
-})
+});
