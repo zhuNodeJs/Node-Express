@@ -12,8 +12,9 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 9900);
 
 /**
-  放置的静态文件的中间件
+  放置的静态文件的中间件,包含一些图片,public已经加载到路径中，所以在别处引用时，勿在路径前面加上public;
 **/
+
 app.use(express.static(__dirname+'/public'));
 
 app.get('/',function (req, res) {
